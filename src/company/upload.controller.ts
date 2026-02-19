@@ -32,7 +32,7 @@ export class UploadController {
         }
 
         const uploadPath = join(
-          '/var/www/html/companyweb/',
+          '/var/www/companyweb/',
           category,
         );
 
