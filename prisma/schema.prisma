@@ -1,0 +1,83 @@
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Contact {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String
+  message   String
+  createdAt DateTime @default(now())
+}
+
+model Admin {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+}
+
+model Gallery {
+  id          Int      @id @default(autoincrement())
+  image    Bytes
+  description String
+  createdAt   DateTime @default(now())
+}
+
+// model TeamProfile {
+//   id          Int      @id @default(autoincrement())
+//   name        String
+//   role        String
+//   image       String
+//   bio         String?
+//   description String?
+//   projects    Json     // store array of strings
+//   experience  Json     // store array of strings
+//   resume      Bytes    // store file (PDF, DOCX, etc.)
+//   reviews     Json     // store array of strings
+//   createdAt   DateTime @default(now())
+//   updatedAt   DateTime @updatedAt
+// }
+
+model TeamProfile {
+  id          Int      @id @default(autoincrement())
+  name        String
+  role        String
+  image       String
+  bio         String?
+  description String?
+
+  projects    Json     // ["AI App", "Web Platform"]
+  experience  Json     // ["5 years in Flutter", "2 years in AI"]
+
+  // Resume stored only as a link
+  resume      String?  
+
+  // Media: [ { "name": "Portfolio", "link": "https://portfolio.com" } ]
+  media       Json?
+
+  reviews     Json     // ["Great leader", "Very professional"]
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+
+model InternshipProject {
+  id        Int      @id @default(autoincrement())
+  image     String   // Cloudinary URL or base64 string
+  name      String
+  projects  String     // array of project names
+  links     String    // array of project links
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+
+
